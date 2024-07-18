@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h1>Account Details</h1>
+    <p>{{account.ref}}</p>
+    <p>{{account.name}}</p>
+    <p>{{account.balance}}</p>
+    
+    <h1>Sent Transactions</h1>
+    {%for transaction in transactions%}
+
+    {{transaction.sender.ref}}
+    {{transaction.recepient.ref}}
+    {{transaction.amount}}
+    {{transaction.timestamp}}
+
+    {%endfor%}
+    
+    <h1>Recevied Transactions</h1>
+    {%for transaction in transactions%}
+
+    {{transaction.sender.ref}}
+    {{transaction.recepient.ref}}
+    {{transaction.amount}}
+    {{transaction.timestamp}}
+
+    {%endfor%}
+    
+</body>
+</html>

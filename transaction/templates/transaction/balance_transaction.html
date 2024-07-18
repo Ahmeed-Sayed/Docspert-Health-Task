@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List</title>
+  </head>
+  <body>
+    
+{%if messages%}
+
+{%for message in messages%}
+{{message}}
+{%endfor%}
+
+{%endif%}
+    <form method="post" action="{% url 'balance-transaction' %}">
+        {% csrf_token %}
+    {%for field in form%}
+    <h5>{{field.label}}</h5>
+    {{field}}
+    {%endfor%}
+
+    <button type="submit">
+        Transfer
+      </button>            
+    </form>
+    {% if form.errors %}
+    <ul class="form-errors">
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+  </body>
+</html>

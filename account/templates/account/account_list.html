@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List</title>
+  </head>
+  <body>
+    <h1>Accounst </h1>
+
+    {%for account in accounts%}
+    <h1>Account Details</h1>
+    <p>{{account.ref}}</p>
+    <p>{{account.name}}</p>
+    <p>{{account.balance}}</p>
+
+    {% comment %}
+    {%for transaction in account.sent_transactions%}
+
+    <p>{{transaction.sender.full_name}}</p>
+    <p>{{transaction.recepient.full_name}}</p>
+    <p>{{transaction.amount}}</p>
+    <p>{{transaction.timestamp}}</p>
+
+    {%endfor%} 
+    {% endcomment %}
+
+
+    {% comment %} 
+    {%for transaction in account.received_transactions%}
+    <p>{{transaction.sender.full_name}}</p>
+    <p>{{transaction.recepient.full_name}}</p>
+    <p>{{transaction.amount}}</p>
+    <p>{{transaction.timestamp}}</p>
+    {%endfor%}  
+    {% endcomment %}
+    
+    {%endfor%}
+  </body>
+</html>
