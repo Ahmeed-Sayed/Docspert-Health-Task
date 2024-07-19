@@ -20,4 +20,4 @@ class Account(models.Model):
             return None
 
     def __str__(self):
-        return f"{self.ref } - {self.name} - {self.balance}"
+        return f"{self.name} - {self.balance}"

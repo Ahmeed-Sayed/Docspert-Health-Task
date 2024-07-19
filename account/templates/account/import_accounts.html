@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload CSV</title>
-</head>
-<body>
-    <h1>Upload CSV</h1>
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
-</body>
-</html>
+{%extends 'base.html'%} {%block title %}Upload CSV{%endblock%} {%block body%}
+<h1 class='mt-2 mb-5'>Upload CSV</h1>
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{% if message.tags == 'success' %}{{ message.tags }}{% else %}danger{% endif %}">
+    {{ message }}
+</div>  {% endfor %}
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="data_file" class="form-control w-25" />
+  <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
+{%endblock%}

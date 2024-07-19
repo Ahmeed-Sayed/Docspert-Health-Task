@@ -1,35 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
-</head>
-<body>
-    <h1>Account Details</h1>
-    <p>{{account.ref}}</p>
-    <p>{{account.name}}</p>
-    <p>{{account.balance}}</p>
-    
-    <h1>Sent Transactions</h1>
-    {%for transaction in transactions%}
-
-    {{transaction.sender.ref}}
-    {{transaction.recepient.ref}}
-    {{transaction.amount}}
-    {{transaction.timestamp}}
-
-    {%endfor%}
-    
-    <h1>Recevied Transactions</h1>
-    {%for transaction in transactions%}
-
-    {{transaction.sender.ref}}
-    {{transaction.recepient.ref}}
-    {{transaction.amount}}
-    {{transaction.timestamp}}
-
-    {%endfor%}
-    
-</body>
-</html>
+{%extends 'base.html'%} {%block title%} Account Details {%endblock%} {%block body%}
+<h1>Account Details</h1>
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Reference</th>
+      <th scope="col">Name</th>
+      <th scope="col">Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ account.ref }}</td>
+      <td>{{ account.name }}</td>
+      <td>{{ account.balance }}</td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  <h2> Transasctions </h2>
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Associate</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for transaction in transactions%}
+      <tr>
+        {%if transaction.sender.id == account.id%}
+        <td>Sent</td>
+        <td>{{ transaction.recipient.name }}</td>
+        {%else%}
+        <td>Recieved</td>
+        <td>{{ transaction.sender.name }}</td>
+        {%endif%}
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.created }}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+{%endblock%}

@@ -36,7 +36,7 @@ class AccountDetailsView(DetailView):
 
         transactions = Transactions.objects.filter(
             Q(sender=account) | Q(recipient=account)
-        ).order_by("created_at")
+        ).order_by("-id")
         context["transactions"] = transactions
 
         return context
@@ -54,6 +54,9 @@ class ImportAccountsView(View):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             csv_file = request.FILES["data_file"]
+            if not self.is_file_csv(request,csv_file):
+                return render(request, self.template_name, {"form": form})
+            
             try:
                 accounts_to_create, accounts_to_update = self.process_csv_file(csv_file)
                 self.save_accounts(accounts_to_create, accounts_to_update)
@@ -62,6 +65,11 @@ class ImportAccountsView(View):
                 messages.error(request, f"Error importing accounts: {e}")
 
             return redirect("import-accounts")
+        
+        for field, error_list in form.errors.items():
+                for error in error_list:
+                    messages.error(request, f"{error}")
+                    
         return render(request, self.template_name, {"form": form})
 
     @staticmethod
@@ -107,3 +115,7 @@ class ImportAccountsView(View):
                 )
         except Exception as e:
             raise Exception(f"Error saving accounts: {e}")
+
+    def is_file_csv(self,request,file):
+        if not file.name.endswith('.csv'):
+                messages.error(request, "Uploaded file is not a CSV file.")

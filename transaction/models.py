@@ -5,7 +5,7 @@ from django.db import models, transaction
 from account.models import Account
 from django.core.exceptions import ValidationError
 
-
+from django.utils import timezone
 class Transactions(models.Model):
     sender = models.ForeignKey(
         Account, related_name="sent_transactions", on_delete=models.CASCADE
@@ -14,7 +14,7 @@ class Transactions(models.Model):
         Account, related_name="received_transactions", on_delete=models.CASCADE
     )
     amount = models.DecimalField(max_digits=100, decimal_places=2)
-
+    created = models.DateTimeField(default=timezone.now)
     @classmethod
     def transfer(cls, sender_ref, transaction_amount, recipient_ref):
 
