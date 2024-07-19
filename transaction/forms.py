@@ -15,5 +15,5 @@ class TransactionForm(forms.Form):
         min_value=5.00,
         initial=5.00,
         required=True,
-        max_digits=10,
+        max_digits=20,
     )
