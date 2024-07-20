@@ -28,11 +28,11 @@
             {% endif %}
         </div>
         <div class="my-3">
-            <label for="recepient" class="form-label">Recepient ID</label>
-            <input type="text" class="form-control" id="recepient" name="recepient" placeholder="e88db039-f549-436e-8423-66a75a6770a2" >
-            {% if form.recepient.errors %}
+            <label for="recipient" class="form-label">Recipient ID</label>
+            <input type="text" class="form-control" id="recepient" name="recipient" placeholder="e88db039-f549-436e-8423-66a75a6770a2" >
+            {% if form.recipient.errors %}
                 <div class="text-danger">
-                    {% for error in form.recepient.errors %}
+                    {% for error in form.recipient.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
                 </div>

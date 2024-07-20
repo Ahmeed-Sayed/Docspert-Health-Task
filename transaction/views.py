@@ -20,7 +20,7 @@ class BalanceTransferView(View):
             cleaned_data = form.cleaned_data
             sender_ref, recipient_ref, amount = (
                 cleaned_data.get("sender"),
-                cleaned_data.get("recepient"),
+                cleaned_data.get("recipient"),
                 cleaned_data.get("amount"),
             )
             if sender_ref == recipient_ref:
@@ -32,12 +32,12 @@ class BalanceTransferView(View):
                         transaction_amount=amount,
                         recipient_ref=recipient_ref,
                     )
+                    
                     messages.success(request, "Transaction Completed Successfully")
                     return redirect("balance-transaction")
                 except ValidationError as e:
-                       messages.error(request, f"{e.message}")
-
+                    form.add_error(None, str(e))
                 except Exception as e:
                     messages.error(request, f"Error making transaction: {e}")
-
+                    
         return render(request, "transaction/balance_transaction.html", {"form": form})
